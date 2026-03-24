@@ -1,0 +1,10 @@
+
+a:hover {
+    color: #213547;
+  }
+
+@layer components {
+  .navBar .active {
+    background-color: #f9f9f9;
+  }
+}
