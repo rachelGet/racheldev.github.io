@@ -55,7 +55,8 @@ function ProjectCard({ project }: ProjectCardProps) {
       }}
     >
       {/* Imagen Grande de Visualización */}
-      <Box sx= {{height: '494', 
+      <Box sx= {{
+      height: '494', 
       width: '100%',
       overflow: 'hidden',
       position: 'relative',
@@ -74,10 +75,9 @@ function ProjectCard({ project }: ProjectCardProps) {
 
           <CardMedia
             component="img"
-            height="294"
             image={project.mainImage}
             alt={project.title}
-            sx={{ objectFit: 'cover', border: 'none', width: '100%', pointerEvents: 'none', }}
+            sx={{height: 294, objectFit: 'cover', border: 'none', width: '100%', pointerEvents: 'none', overflow: 'hidden', display: 'block' }}
           />
         )}
       </Box>
@@ -253,7 +253,7 @@ const myProjects: Project[] = [
     {
     title: "AI Semantic Search",
     description: "Built a vector search engine using Qdrant and HuggingFace during the Winter Hackathon.",
-    mainImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995", // Imagen de IA
+    mainImage: "https://media.licdn.com/dms/image/v2/D4E05AQGSXlbWnrfG5Q/videocover-low/videocover-low/0/1727114872008?e=1775152800&v=beta&t=l-rUG2fRqB5pYqcsNa-SbzwiVw7nDETW11_TU8pv6_A&quot", // Imagen de IA
     userImage: "https://avatars.githubusercontent.com/u/66224544?v=4", // Tu avatar
     userName: "rachelDev",
     publishedDate: "Mar 2024",
@@ -379,6 +379,16 @@ function App() {
               <span className="h-1 w-1 rounded-full bg-gray-400" />
               <span className="text-primary/80">Hackathon Enthusiast</span>
             </motion.div>
+            <motion.div 
+              initial={{ y: 0, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.98 }}
+              className="mt-4 flex flex-wrap justify-center items-center gap-2 text-sm md:text-lg font-[400]"
+            >
+              <span className="h-1 w-220 rounded-full ">
+                My home is your home.
+              </span>
+              </motion.div>
           </div>
           <div className='flex flex-col items-center justify-center p-15'>
             <Box

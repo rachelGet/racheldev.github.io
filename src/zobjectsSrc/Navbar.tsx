@@ -3,6 +3,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../commonSrc/ThemeContext.tsx';
 import { SunIcon, MoonIcon } from "../commonSrc/icons/iconsFunc.tsx";
+import { HashLink } from 'react-router-hash-link';
+
 
 type Item = {
   section: string;
@@ -50,12 +52,18 @@ function Navbar() {
               }`}
           >
             {/*  Home Link */}
-            <a href="" className="flex items-center space-x-3 rtl:space-x-reverse">
-                <span className={`self-center font-semibold whitespace-nowrap text-lg
+            <a href="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
+                
+                <HashLink 
+                  className={`self-center font-semibold whitespace-nowrap text-lg
                   ${isDark ? 'text-gray-100' : 'text-gray-800'}`}
+                  smooth 
+                  to={`home`} 
+                  style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   Home
-                </span>
+              </HashLink>
+
             </a>
             <div className="flex md:order-2 space-x-3 md:space-x-1 rtl:space-x-reverse gap-5 items-center">
                 {/*  Other Nav Items */}
