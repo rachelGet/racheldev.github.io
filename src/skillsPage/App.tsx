@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './styles/App.css'
 
-function App() {
+function SkillsPage() {
   const [count, setCount] = useState(0)
 
   return (
@@ -25,4 +25,4 @@ function App() {
   )
 }
 
-export default App
+export default SkillsPage

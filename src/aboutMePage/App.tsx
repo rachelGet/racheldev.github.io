@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './styles/App.css'
 
-function ArtPage() {
+function AboutMePage() {
   const [count, setCount] = useState(0)
 
   return (
@@ -25,4 +25,4 @@ function ArtPage() {
   )
 }
 
-export default ArtPage
+export default AboutMePage

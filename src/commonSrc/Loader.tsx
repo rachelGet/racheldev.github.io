@@ -10,7 +10,7 @@ export default function Loader({ isLoading }: { isLoading: boolean }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[99999] flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)' }}
+          style={{ background: 'transparent' }}
         >
           <div className="flex flex-col items-center gap-6">
             {/* Spinner */}
@@ -27,11 +27,6 @@ export default function Loader({ isLoading }: { isLoading: boolean }) {
                 animate={{ rotate: -360 }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
               />
-              <motion.div
-                className="absolute inset-4 rounded-full bg-blue-400/20"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-              />
             </div>
             {/* Loading text */}
             <motion.p
@@ -39,7 +34,7 @@ export default function Loader({ isLoading }: { isLoading: boolean }) {
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
-              Loading
+              Wait please
             </motion.p>
           </div>
         </motion.div>
