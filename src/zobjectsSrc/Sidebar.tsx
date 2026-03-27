@@ -16,7 +16,7 @@ export default function MainMenu() {
   { label: "Articles", id: "articles" },
   { label: "Certifications & Education", id: "education" }
 ];
-  const wValue = 350;
+  const wValue = typeof window !== 'undefined' && window.innerWidth < 640 ? 280 : 350;
   const wClosed = 16;
   const top = 20;
   const h = 95;
@@ -43,7 +43,7 @@ export default function MainMenu() {
           style={{ width: isOpen ? `${wValue - wClosed}px` : '0px' }}
           className="h-full transition-all duration-300 overflow-hidden"
         >
-          <div className="p-10 w-full">
+          <div className="p-6 md:p-10 w-full">
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : -20 }}

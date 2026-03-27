@@ -178,7 +178,7 @@ function ContactDialog({ open, onClose, isDark }: { open: boolean; onClose: () =
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
           <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, pt: 2, px: 3 }}>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
               <TextField
                 name="name"
                 label="Name"
@@ -284,7 +284,7 @@ function Navbar() {
           className={`fixed w-full z-20 top-1.5 start-0 transition-colors duration-300`}
         >
           <div
-            className={`max-w-8x flex flex-wrap items-center justify-between mx-auto pr-1.5 pl-10 py-1 rounded-xl mx-4 backdrop-blur-md transition-all duration-300
+            className={`max-w-8x flex flex-wrap items-center justify-between pr-1.5 pl-4 md:pl-10 py-1 rounded-xl mx-2 md:mx-4 backdrop-blur-md transition-all duration-300
               ${isDark
                 ? 'bg-[#1a1b26]/80 shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-0 border-[#2e3148]/50'
                 : 'bg-white/80 shadow-[0_4px_30px_rgba(0,0,0,0.08)] border border-gray-200/50'
@@ -304,7 +304,7 @@ function Navbar() {
               </HashLink>
 
             </a>
-            <div className="flex md:order-2 space-x-3 md:space-x-1 rtl:space-x-reverse gap-5 items-center">
+            <div className="flex md:order-2 space-x-1 md:space-x-1 rtl:space-x-reverse gap-2 md:gap-5 items-center">
                 {/*  Other Nav Items */}
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-sticky">
                     <ul className="flex p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
@@ -326,7 +326,7 @@ function Navbar() {
                       : 'focus:ring-blue-300/30 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
                     }`}
                 >
-                    <span className={`self-center font-light whitespace-nowrap px-5
+                    <span className={`self-center font-light whitespace-nowrap px-2 md:px-5 hidden sm:inline
                       ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
                     >
                       Get in touch

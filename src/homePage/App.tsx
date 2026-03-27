@@ -56,7 +56,7 @@ function ProjectCard({ project }: ProjectCardProps) {
     >
       {/* Imagen Grande de Visualización */}
       <Box sx= {{
-      height: '494', 
+      height: { xs: 200, sm: 294, md: 494 },
       width: '100%',
       overflow: 'hidden',
       position: 'relative',
@@ -68,7 +68,7 @@ function ProjectCard({ project }: ProjectCardProps) {
             component="iframe"
             src={`https://www.youtube.com/embed/${getYouTubeId(project.video)}?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&playlist=${getYouTubeId(project.video)}&start=200&end=380&modestbranding=1`}          
             title={project.title}
-            sx={{ border: 'none', width: '100%', pointerEvents: 'none', userSelect:'none', transform: 'scale(2.15)', overflow: 'hidden', }}
+            sx={{ border: 'none', width: '100%', height: '100%', pointerEvents: 'none', userSelect:'none', transform: 'scale(2.15)', overflow: 'hidden', }}
             allow="autoplay; encrypted-media"
           />
         ) : (
@@ -77,14 +77,14 @@ function ProjectCard({ project }: ProjectCardProps) {
             component="img"
             image={project.mainImage}
             alt={project.title}
-            sx={{height: 294, objectFit: 'cover', border: 'none', width: '100%', pointerEvents: 'none', overflow: 'hidden', display: 'block' }}
+            sx={{height: '100%', objectFit: 'cover', border: 'none', width: '100%', pointerEvents: 'none', overflow: 'hidden', display: 'block' }}
           />
         )}
       </Box>
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: { xs: 2, md: 3 } }}>
         {/* Encabezado: Título y Link */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-          <Typography variant="h5" fontWeight="bold" component="div">
+          <Typography variant="h5" fontWeight="bold" component="div" sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}>
             {project.title}
           </Typography>
           <IconButton 
@@ -268,7 +268,7 @@ const myProjects: Project[] = [
     userName: "rachelDev",
     publishedDate: "Mar 2024",
     video:"https://www.youtube.com/watch?v=tyAyS40lZlc",
-    link: "https://github.com/tu-usuario/proyecto"
+    link: "https://github.com/rachelGet/trading_Qtinterface"
   }
 ];
 
@@ -307,31 +307,40 @@ function InfoCard({ w, h, index, selectedCard, setSelectedCard, children }: { w:
   if (!card) return null;
 
   return (
-    <Card 
-      key={card.id} 
-      sx={{ 
-        height: h, 
-        width: w, 
-        transition: 'transform 0.2s',
-        '&:hover': { transform: 'scale(1.02)' } 
+    <Card
+      key={card.id}
+      sx={{
+        height: h,
+        width: w,
+        bgcolor: 'transparent',
+        border: '1px solid transparent',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+        borderRadius: '16px',
+        transition: 'transform 0.2s, box-shadow 0.2s',
+        '&:hover': {
+          transform: 'scale(1.02)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+        },
       }}
     >
       <CardActionArea
-        onClick={() => setSelectedCard(index)} 
+        onClick={() => setSelectedCard(index)}
         data-active={selectedCard === index ? '' : undefined}
         sx={{
           height: '100%',
+          bgcolor: 'transparent',
+          border:'0px',
+          borderColor:'transparent',
           '&[data-active]': {
-            backgroundColor: 'action.selected',
-            borderColor: 'primary.main',
+            backgroundColor: 'transparent',
             '&:hover': {
-              backgroundColor: 'action.selectedHover',
+              backgroundColor: 'transparent',
             },
           },
         }}
       >
-        <CardContent sx={{ height: '100%' }}>
-          <Typography variant="h5" component="div" fontWeight="bold">
+        <CardContent sx={{ height: '100%', p: { xs: 2, md: 3 } }}>
+          <Typography variant="h5" component="div" fontWeight="bold" sx={{ fontSize: { xs: '1.1rem', md: '1.5rem' } }}>
             {card.title}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -422,15 +431,24 @@ function App() {
               </span>
               </motion.div>
           </div>
-          <div className='flex flex-col items-center justify-center p-15'>
+          <div className='flex flex-col items-center justify-center px-4 py-6 md:p-15'>
             <Box
               sx={{
                 width: '100%',
                 display: 'grid',
-                gridTemplateColumns: '0.5fr minmax(300px, 1.5fr)',
+                gridTemplateColumns: { xs: '1fr', md: '0.5fr minmax(300px, 1.5fr)' },
                 gap: 1.5,
                 alignItems: 'start',
-                marginBottom:'12px'
+                marginBottom: '12px',
+                bgcolor: isDark ? 'rgba(26, 27, 38, 0.55)' : 'rgba(255, 255, 255, 0.45)',
+                backdropFilter: 'blur(16px)',
+                borderRadius: '24px',
+                border: '1px solid',
+                borderColor: isDark ? 'rgba(46, 49, 72, 0.5)' : 'rgba(216, 220, 230, 0.6)',
+                boxShadow: isDark
+                  ? '0 8px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(46, 49, 72, 0.2)'
+                  : '0 8px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(216, 220, 230, 0.3)',
+                p: { xs: 1.5, md: 3 },
               }}
             >
               {/* Lenguage Card*/}              
@@ -474,7 +492,7 @@ function App() {
                 selectedCard={selectedCard} 
                 setSelectedCard={setSelectedCard} 
               >
-                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 3 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fit, minmax(260px, 1fr))' }, gap: 3 }}>
                   {myProjects.map((proj, i) => (
                     <ProjectCard key={i} project={proj} />
                   ))}
@@ -487,28 +505,28 @@ function App() {
                 index={4} 
                 selectedCard={selectedCard} 
                 setSelectedCard={setSelectedCard}>
-                  <Box 
-                    sx={{ 
-                      width: '100%', 
-                      p: 3, 
-                      borderRadius: '16px', 
-                      border: '1px solid',
+                  <Box
+                    sx={{
+                      width: '100%',
+                      p: { xs: 2, md: 3 },
+                      borderRadius: '16px',
+                      border: '0px solid',
                       borderColor: 'divider',
                       bgcolor: 'background.paper'
                     }}
                   >
-                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                      
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', flexDirection: { xs: 'column', sm: 'row' } }}>
+
                       {/* 1. Icono o Logo de la Institución */}
-                      <Avatar 
+                      <Avatar
                         src="https://media.licdn.com/dms/image/v2/C4D0BAQEu_Aa76fcmPw/company-logo_200_200/company-logo_200_200/0/1630998679745/universidad_europea_de_madrid_logo?e=1776297600&v=beta&t=vMk7rLrl5Vgy_VVkJC4QYBPWk6ndjBMgH0GtlG3NKbk" // Cambia por el logo de tu uni
                         variant="rounded"
                         sx={{ width: 56, height: 56, bgcolor: 'primary.light' }}
                       />
 
-                      <Box sx={{ flexGrow: 1 }}>
+                      <Box sx={{ flexGrow: 1, width: '100%' }}>
                         {/* 2. Título de Carrera y Link a la Institución */}
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
                           <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1.2 }}>
                             Degree in Data Science
                           </Typography>
