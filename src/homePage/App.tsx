@@ -267,7 +267,7 @@ const myProjects: Project[] = [
     userImage: "https://avatars.githubusercontent.com/u/66224544?v=4", // Tu avatar
     userName: "rachelDev",
     publishedDate: "Mar 2024",
-    video:"",
+    video:"https://www.youtube.com/watch?v=tyAyS40lZlc",
     link: "https://github.com/tu-usuario/proyecto"
   }
 ];
@@ -281,12 +281,12 @@ const cards = [
   {
     id: 'skills_card',
     title: 'Skills',
-    description: 'Cloud & Architecture: Docker, Dapr, Redis. | AI & Data: Qdrant (Vector DB), HuggingFace, Scikit-learn. | Frameworks: Django.',
+    description: 'Cloud & Architecture: Docker, Dapr, Redis. | AI & Data: Qdrant (Vector DB), PostgreSQL, HuggingFace, Scikit-learn. | Frameworks: Django & Qt.',
   },
   {
     id: 'certifications_card',
     title: 'Certifications',
-    description: 'Technical expertise through credentials from different instituions.',
+    description: 'Technical expertise through credentials from different institutions.',
   },
     {
     id: "projects_card",
@@ -348,22 +348,54 @@ function App() {
   const isDark = theme === 'dark';
 
   const [selectedCard, setSelectedCard] = React.useState(0);
+  const [scrollY, setScrollY] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      setScrollY(container.scrollTop);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Shrink the hero from 60vh down to 30vh as user scrolls (over 300px of scroll)
+  const heroShrink = Math.min(scrollY / 300, 1);
+  const heroHeight = 60 - heroShrink * 30; // 60vh -> 30vh
+  const heroOpacity = 1 - heroShrink * 0.4; // fade slightly
+  const heroScale = 1 - heroShrink * 0.05; // subtle scale down
 
   return (
     <>
-      <div className="absolute flex-col min-h-screen w-full z-full h-full top-0 left-0 start-0 z-10 p-0 m-0">
+      <div
+        ref={containerRef}
+        className="absolute flex-col min-h-screen w-full z-full h-full top-0 left-0 start-0 z-10 p-0 m-0"
+        style={{ overflowY: 'auto', scrollBehavior: 'smooth' }}
+      >
         {/* Main section */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className={`flex-grow flex flex-col md:h-auto w-full transition-all duration-300
+          className={`flex-grow flex flex-col md:h-auto w-full
             ${isDark
               ? 'bg-transparent'
               : 'bg-[#f5f7fa]/50'
             }`}
           id="Main div">
-          <div className="flex mt-10 flex-col items-center justify-center h-[60vh] text-center">
+          <div
+            className="flex mt-10 flex-col items-center justify-center text-center"
+            style={{
+              height: `${heroHeight}vh`,
+              opacity: heroOpacity,
+              transform: `scale(${heroScale})`,
+              transition: 'height 0.15s ease-out, opacity 0.15s ease-out, transform 0.15s ease-out',
+            }}
+          >
             <GradualSpacing 
               text="Welcome to rachelDev.io" 
             />
@@ -386,7 +418,7 @@ function App() {
               className="mt-4 flex flex-wrap justify-center items-center gap-2 text-sm md:text-lg font-[400]"
             >
               <span className="h-1 w-220 rounded-full ">
-                My home is your home.
+                
               </span>
               </motion.div>
           </div>
@@ -517,7 +549,7 @@ function App() {
                               Periodo
                             </Typography>
                             <Typography variant="body2" fontWeight="medium">
-                              Agosto 2022 — Junio 2026 (Esperado)
+                              Agosto 2024 — Junio 2026 (Esperado)
                             </Typography>
                           </Box>
                         </Box>
@@ -545,10 +577,9 @@ function App() {
             initial={{ y: 0, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="mt-6 flex flex-col items-center gap-2 text-gray-400 text-[15px]"
+            className="mt-6 flex flex-col items-center gap-2 text-gray-400 text-[15px] w-[100%]"
           >
-            {/* Línea 1: Estudiante & Universidad */}
-            <div className="flex items-center gap-2">
+
               <span>Data Science & AI Student   -</span>
               <a 
                 href="https://www.linkedin.com/school/universidad-europea-de-madrid/" 
@@ -558,15 +589,11 @@ function App() {
               >
                 @EuropeUniversity
               </a>
-            </div>
+              <div className="flex items-center gap-2">
+                <span className="block italic">Hackathon Enthusiast</span>
+              </div>
 
-            {/* Línea 2: Developer & Hackathons */}
-            <div className="flex items-center gap-2">
-              <span className="text-white/90">Backend</span>
-              <span className="text-magenta-500 font-bold uppercase tracking-wider">Developer</span>
-              <span className="text-white/40">&</span>
-              <span className="italic">Hackathon Enthusiast</span>
-            </div>
+
           </motion.div>
         </motion.div>
       </div>

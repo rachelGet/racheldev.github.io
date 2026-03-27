@@ -12,3 +12,36 @@ a:hover {
 a:hover {
     color: #213547;
   }
+
+/* Geometric background animation */
+.geo-shape {
+  opacity: 0;
+  animation: geoFloat linear infinite both;
+}
+
+@keyframes geoFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.8);
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg) scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) rotate(360deg) scale(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .geo-shape {
+    animation: none;
+    opacity: 0.5;
+  }
+}

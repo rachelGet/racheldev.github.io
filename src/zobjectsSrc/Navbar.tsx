@@ -4,6 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../commonSrc/ThemeContext.tsx';
 import { SunIcon, MoonIcon } from "../commonSrc/icons/iconsFunc.tsx";
 import { HashLink } from 'react-router-hash-link';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  IconButton,
+  Box,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 type Item = {
@@ -27,6 +38,233 @@ function ItemNavBar({ item, isDark }: { item: Item; isDark: boolean }) {
     );
 }
 
+function ContactDialog({ open, onClose, isDark }: { open: boolean; onClose: () => void; isDark: boolean }) {
+  const [formData, setFormData] = useState({ name: '', email: '', _subject: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    await fetch(form.action, { method: 'POST', body: new FormData(form) });
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: '', email: '', _subject: '', message: '' });
+      onClose();
+    }, 2000);
+  };
+
+  const textFieldSx = {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '12px',
+      backgroundColor: isDark ? 'rgba(30, 32, 48, 0.6)' : 'rgba(240, 242, 245, 0.5)',
+      backdropFilter: 'blur(8px)',
+      '& fieldset': {
+        borderColor: isDark ? '#2e3148' : '#d8dce6',
+      },
+      '&:hover fieldset': {
+        borderColor: isDark ? '#4a90d9' : '#3b82f6',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: isDark ? '#4a90d9' : '#3b82f6',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: isDark ? '#8b95c9' : '#5a6a7e',
+      fontWeight: 400,
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+      color: isDark ? '#4a90d9' : '#3b82f6',
+    },
+    '& .MuiInputBase-input': {
+      color: isDark ? '#c0caf5' : '#2c3e50',
+    },
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      slotProps={{
+        backdrop: {
+          sx: {
+            backgroundColor: isDark ? 'rgba(15, 17, 23, 0.7)' : 'rgba(0, 0, 0, 0.3)',
+            backdropFilter: 'blur(6px)',
+          },
+        },
+      }}
+      PaperProps={{
+        sx: {
+          borderRadius: '20px',
+          bgcolor: isDark ? 'rgba(26, 27, 38, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid',
+          borderColor: isDark ? '#2e3148' : 'rgba(216, 220, 230, 0.5)',
+          boxShadow: isDark
+            ? '0 24px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(46, 49, 72, 0.3)'
+            : '0 24px 80px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(216, 220, 230, 0.3)',
+          overflow: 'hidden',
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          pb: 0,
+          pt: 3,
+          px: 3,
+          fontWeight: 600,
+          fontSize: '1.25rem',
+          color: isDark ? '#c0caf5' : '#2c3e50',
+        }}
+      >
+        Get in Touch
+        <IconButton
+          onClick={onClose}
+          size="small"
+          sx={{
+            color: isDark ? '#8b95c9' : '#5a6a7e',
+            bgcolor: isDark ? 'rgba(46, 49, 72, 0.5)' : 'rgba(240, 242, 245, 0.8)',
+            borderRadius: '10px',
+            width: 32,
+            height: 32,
+            '&:hover': {
+              bgcolor: isDark ? 'rgba(46, 49, 72, 0.8)' : 'rgba(216, 220, 230, 0.8)',
+            },
+          }}
+        >
+          <CloseIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+      </DialogTitle>
+
+      {submitted ? (
+        <Box sx={{ py: 6, px: 4, textAlign: 'center' }}>
+          <Box
+            sx={{
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              bgcolor: isDark ? 'rgba(74, 144, 217, 0.15)' : 'rgba(59, 130, 246, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mx: 'auto',
+              mb: 2,
+            }}
+          >
+            <Box sx={{ fontSize: '1.5rem', color: isDark ? '#4a90d9' : '#3b82f6' }}>✓</Box>
+          </Box>
+          <Box sx={{ fontSize: '1rem', fontWeight: 500, color: isDark ? '#c0caf5' : '#2c3e50' }}>
+            Message sent!
+          </Box>
+          <Box sx={{ fontSize: '0.85rem', color: isDark ? '#8b95c9' : '#5a6a7e', mt: 0.5 }}>
+            I'll get back to you soon.
+          </Box>
+        </Box>
+      ) : (
+        <form
+          action="https://formsubmit.co/raquelvalentinaherrera@gmail.com"
+          method="POST"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, pt: 2, px: 3 }}>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <TextField
+                name="name"
+                label="Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                fullWidth
+                size="small"
+                sx={textFieldSx}
+              />
+              <TextField
+                name="email"
+                label="Email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                fullWidth
+                size="small"
+                sx={textFieldSx}
+              />
+            </Box>
+            <TextField
+              name="_subject"
+              label="Subject"
+              value={formData._subject}
+              onChange={handleChange}
+              required
+              fullWidth
+              size="small"
+              sx={textFieldSx}
+            />
+            <TextField
+              name="message"
+              label="Message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              fullWidth
+              multiline
+              rows={4}
+              size="small"
+              sx={textFieldSx}
+            />
+          </DialogContent>
+          <DialogActions sx={{ px: 3, pb: 3, pt: 1, gap: 1 }}>
+            <Button
+              onClick={onClose}
+              sx={{
+                borderRadius: '12px',
+                textTransform: 'none',
+                px: 3,
+                fontWeight: 500,
+                color: isDark ? '#8b95c9' : '#5a6a7e',
+                '&:hover': {
+                  bgcolor: isDark ? 'rgba(46, 49, 72, 0.5)' : 'rgba(240, 242, 245, 0.8)',
+                },
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              sx={{
+                borderRadius: '12px',
+                textTransform: 'none',
+                px: 4,
+                py: 1,
+                fontWeight: 600,
+                bgcolor: isDark ? '#4a90d9' : '#3b82f6',
+                '&:hover': {
+                  bgcolor: isDark ? '#3b7bc4' : '#2563eb',
+                },
+              }}
+            >
+              Send Message
+            </Button>
+          </DialogActions>
+        </form>
+      )}
+    </Dialog>
+  );
+}
+
 function Navbar() {
     const navItems: Item[] = [
       { section: "Projects" },
@@ -34,6 +272,7 @@ function Navbar() {
     ];
     const { theme, toggleTheme } = useTheme();
     const [open, setOpen] = useState(false);
+    const [contactOpen, setContactOpen] = useState(false);
     const isDark = theme === 'dark';
 
     return (
@@ -80,6 +319,7 @@ function Navbar() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   type="button"
+                  onClick={() => setContactOpen(true)}
                   className={` h- flex items-center gap-2 bg-transparent focus:ring-4 border-0 border-transparent font-medium leading-5 rounded-full text-sm px-2 py-1 focus:outline-none cursor-pointer transition-all duration-200
                     ${isDark
                       ? 'focus:ring-blue-500/30 shadow-[0_2px_10px_rgba(0,0,0,0.2)]'
@@ -95,6 +335,7 @@ function Navbar() {
                         <img className="w-full h-full object-cover scale-120 transition-transform duration-300 hover:scale-180" src="https://media.licdn.com/dms/image/v2/D4E03AQEFBKLEoiODAA/profile-displayphoto-scale_400_400/B4EZm.udcDGYAk-/0/1759841476126?e=1776297600&v=beta&t=Q-gIN8bXgRSUJqzxMmLTZos-jB7tF0NMrhVbggHv8Aw" alt=""/>
                     </div>
                 </motion.button>
+                <ContactDialog open={contactOpen} onClose={() => setContactOpen(false)} isDark={isDark} />
                 <button onClick={() => setOpen((v) => !v)} type="button"
                         className={`inline-flex items-center p-15 w-10 h-10 justify-center text-sm rounded-full md:hidden focus:outline-none focus:ring-2 transition-colors duration-200
                           ${isDark
