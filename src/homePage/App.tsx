@@ -42,7 +42,13 @@ function ProjectCard({ project }: ProjectCardProps) {
       }}
     >
       {/* Imagen Grande de Visualización */}
-      <Box sx= {{
+      <Box 
+      onClick={() => {
+          if (project.video) {
+            window.open(project.video, '_blank', 'noopener,noreferrer');
+          }
+        }}
+      sx= {{
       height: { xs: 200, sm: 294, md: 294 },
       width: '100%',
       overflow: 'hidden',

@@ -16,25 +16,38 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+interface ItemNavBarProps {
+  page: {
+    label: string;
+    id: string;
+  };
+  isDark: boolean;
+}
 
-type Item = {
-  section: string;
-};
-
-function ItemNavBar({ item, isDark }: { item: Item; isDark: boolean }) {
+export function ItemNavBar( {page, isDark}:ItemNavBarProps ) {
     return (
-        <motion.a
-          href="#"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`block py-2 px-3 rounded transition-colors duration-200
-            ${isDark
+        <motion.li
+            key={page.label}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`block py-2 px-3 rounded transition-colors duration-200           
+              ${isDark
               ? 'text-gray-300 hover:text-blue-400'
               : 'text-gray-600 hover:text-blue-600'
             } md:p-0`}
-        >
-            {item.section}
-        </motion.a>
+          >
+            <HashLink 
+              smooth 
+              to={`${page.id}`} 
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              {page.label}
+            </HashLink>
+          </motion.li>
+        
     );
 }
 
@@ -266,9 +279,9 @@ function ContactDialog({ open, onClose, isDark }: { open: boolean; onClose: () =
 }
 
 function Navbar() {
-    const navItems: Item[] = [
-      { section: "Projects" },
-      { section: "About" },
+    const navItems = [
+      { label: "About me", id: "about" },
+      { label: "Projects", id: "projects" },
     ];
     const { theme, toggleTheme } = useTheme();
     const [open, setOpen] = useState(false);
@@ -308,8 +321,8 @@ function Navbar() {
                 {/*  Other Nav Items */}
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-sticky">
                     <ul className="flex p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                        {navItems.map((item, i) => (
-                            <ItemNavBar key={i} item={item} isDark={isDark} />
+                        {navItems.map((item) => (
+                            <ItemNavBar page={item} isDark={isDark} />
                         ))}
                     </ul>
                 </div>
