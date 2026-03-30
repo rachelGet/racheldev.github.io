@@ -5,53 +5,7 @@ import { GradualSpacing } from '../commonSrc/fonts/font-motions.tsx';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
-
-interface SkillCategory {
-  title: string;
-  icon: string;
-  skills: { name: string; level: number }[];
-}
-
-const skillCategories: SkillCategory[] = [
-  {
-    title: 'Cloud & Architecture',
-    icon: '☁️',
-    skills: [
-      { name: 'Docker', level: 85 },
-      { name: 'Dapr', level: 80 },
-      { name: 'Redis', level: 75 },
-    ],
-  },
-  {
-    title: 'AI & Data',
-    icon: '🧠',
-    skills: [
-      { name: 'Qdrant (Vector DB)', level: 80 },
-      { name: 'PostgreSQL', level: 85 },
-      { name: 'HuggingFace', level: 75 },
-      { name: 'Scikit-learn', level: 80 },
-    ],
-  },
-  {
-    title: 'Frameworks',
-    icon: '⚙️',
-    skills: [
-      { name: 'Django', level: 80 },
-      { name: 'Qt', level: 75 },
-      { name: 'React', level: 70 },
-    ],
-  },
-  {
-    title: 'Tools & Workflow',
-    icon: '🛠️',
-    skills: [
-      { name: 'Git & GitHub', level: 90 },
-      { name: 'Linux / CLI', level: 85 },
-      { name: 'Tableau', level: 75 },
-      { name: 'Vite', level: 70 },
-    ],
-  },
-];
+import { skillCategories } from '../commonSrc/Data.tsx'
 
 function SkillsPage() {
   const { theme } = useTheme();

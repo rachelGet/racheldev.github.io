@@ -5,52 +5,7 @@ import { GradualSpacing } from '../commonSrc/fonts/font-motions.tsx';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
-
-interface Language {
-  name: string;
-  level: number;
-  experience: string;
-  description: string;
-  color: string;
-}
-
-const languages: Language[] = [
-  {
-    name: 'Python',
-    level: 90,
-    experience: '3+ years',
-    description: 'Primary language for data science, ML pipelines, backend APIs with Django, and scripting.',
-    color: '#3776ab',
-  },
-  {
-    name: 'Go',
-    level: 75,
-    experience: '2+ years',
-    description: 'Used for building microservices, CLI tools, and high-performance concurrent systems.',
-    color: '#00add8',
-  },
-  {
-    name: 'C++',
-    level: 70,
-    experience: '2+ years',
-    description: 'Desktop applications with Qt framework, algorithmic challenges, and performance-critical code.',
-    color: '#659ad2',
-  },
-  {
-    name: 'SQL',
-    level: 80,
-    experience: '2+ years',
-    description: 'Database design, complex queries, and analytics with PostgreSQL and Oracle.',
-    color: '#f29111',
-  },
-  {
-    name: 'TypeScript',
-    level: 65,
-    experience: '1+ year',
-    description: 'Frontend development with React, building this portfolio and interactive web apps.',
-    color: '#3178c6',
-  },
-];
+import {languages} from '../commonSrc/Data.tsx';
 
 function LenguagesPage() {
   const { theme } = useTheme();

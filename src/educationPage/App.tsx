@@ -9,40 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Chip from '@mui/material/Chip';
 import LaunchIcon from '@mui/icons-material/Launch';
+import { myCerts } from '../commonSrc/Data.tsx';
 
-interface Certification {
-  title: string;
-  issuer: string;
-  logoUrl: string;
-  link: string;
-}
-
-const myCerts: Certification[] = [
-  {
-    title: "Oracle SQL Databases",
-    issuer: "LearnQuest",
-    logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-3-zlgn9KhPuEAK5kYFECzbGvtmQf1DVT4g&s",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~HC13GS4V59XD/CERTIFICATE_LANDING_PAGE~HC13GS4V59XD.jpeg",
-  },
-  {
-    title: "Google Advanced Data Analytics",
-    issuer: "Google",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/4a/cb36835ae3421187080898a7ecc11d/Google-G_360x360.png?auto=format%2Ccompress&dpr=1&w=80&h=80",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8.jpeg",
-  },
-  {
-    title: "Tableau Specialization",
-    issuer: "Packt",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/fa/3b9b5304c24cf4aa64054631ee946c/360-360-square.png?auto=format%2Ccompress&dpr=1&w=64&h=64",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8.jpeg",
-  },
-  {
-    title: "BI Essentials for Finance Analysts",
-    issuer: "Corporate Finance Institute",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/15/359c4869c549c79537f3059b5d025a/Union-Mark_navy-large.png?auto=format%2Ccompress&dpr=1&w=64&h=64",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~MBUSXD5ZUV00/CERTIFICATE_LANDING_PAGE~MBUSXD5ZUV00.jpeg",
-  },
-];
 
 function EducationPage() {
   const { theme } = useTheme();

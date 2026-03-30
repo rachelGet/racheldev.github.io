@@ -12,60 +12,13 @@ import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Chip from '@mui/material/Chip';
 import LaunchIcon from '@mui/icons-material/Launch';
-
-interface Project {
-  title: string;
-  description: string;
-  mainImage: string;
-  userImage: string;
-  userName: string;
-  publishedDate: string;
-  video: string;
-  link: string;
-  tags: string[];
-}
+import { myProjects } from '../commonSrc/Data.tsx';
 
 const getYouTubeId = (url: string | undefined): string | null => {
   if (!url) return null;
   const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]{11})/);
   return match ? match[1] : null;
 };
-
-const myProjects: Project[] = [
-  {
-    title: "Hackathon Dapr: ZAIDriver",
-    description: "An AI-powered driving assistant built with Dapr microservices architecture. Features real-time object detection and voice-guided navigation using distributed cloud components.",
-    mainImage: "",
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4",
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video: "https://www.youtube.com/watch?v=YfDT1425pZw",
-    link: "https://github.com/tu-usuario/proyecto",
-    tags: ["Dapr", "Docker", "Python", "AI"],
-  },
-  {
-    title: "AI Semantic Search",
-    description: "Built a vector search engine using Qdrant and HuggingFace during the Winter Hackathon. Enables semantic querying over large document collections with high recall.",
-    mainImage: "https://media.licdn.com/dms/image/v2/D4E05AQGSXlbWnrfG5Q/videocover-low/videocover-low/0/1727114872008?e=1775152800&v=beta&t=l-rUG2fRqB5pYqcsNa-SbzwiVw7nDETW11_TU8pv6_A&quot",
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4",
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video: "",
-    link: "https://github.com/tu-usuario/proyecto",
-    tags: ["Qdrant", "HuggingFace", "Python", "Vector DB"],
-  },
-  {
-    title: "Trading Qt Interface",
-    description: "A desktop trading interface built with Qt framework featuring real-time market data visualization, portfolio tracking, and algorithmic trading strategy backtesting.",
-    mainImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4",
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video: "https://www.youtube.com/watch?v=tyAyS40lZlc",
-    link: "https://github.com/rachelGet/trading_Qtinterface",
-    tags: ["C++", "Qt", "Finance", "Data Viz"],
-  },
-];
 
 function ProjecsPage() {
   const { theme } = useTheme();

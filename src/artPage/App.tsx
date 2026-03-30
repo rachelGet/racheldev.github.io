@@ -5,38 +5,10 @@ import { GradualSpacing } from '../commonSrc/fonts/font-motions.tsx';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
+import {articles} from '../commonSrc/Data.tsx'
+import { IconButton, Link } from '@mui/material';
+import LaunchIcon from '@mui/icons-material/Launch';
 
-interface Article {
-  title: string;
-  summary: string;
-  date: string;
-  tags: string[];
-  readTime: string;
-}
-
-const articles: Article[] = [
-  {
-    title: 'Getting Started with Vector Databases',
-    summary: 'An introduction to vector databases, how they differ from traditional databases, and why they are essential for modern AI applications. Covers Qdrant setup and basic operations.',
-    date: 'Feb 2024',
-    tags: ['Qdrant', 'AI', 'Databases'],
-    readTime: '5 min read',
-  },
-  {
-    title: 'Building Microservices with Dapr',
-    summary: 'A deep dive into the Distributed Application Runtime (Dapr) and how it simplifies building resilient, stateful microservices. Includes Docker Compose setup and service invocation patterns.',
-    date: 'Jan 2024',
-    tags: ['Dapr', 'Docker', 'Cloud'],
-    readTime: '8 min read',
-  },
-  {
-    title: 'Data Visualization Best Practices',
-    summary: 'Lessons learned from creating dashboards in Tableau and Python. Covers chart selection, color theory for data, and how to tell compelling stories with numbers.',
-    date: 'Dec 2023',
-    tags: ['Tableau', 'Python', 'Data Viz'],
-    readTime: '6 min read',
-  },
-];
 
 function ArtPage() {
   const { theme } = useTheme();
@@ -111,6 +83,15 @@ function ArtPage() {
                 <Typography variant="body2" sx={{ color: isDark ? '#8b95c9' : '#5a6a7e', lineHeight: 1.8, mb: 2.5 }}>
                   {article.summary}
                 </Typography>
+                <IconButton 
+                  component={Link}
+                  href={article.link} 
+                  target="_blank" 
+                  size="small" 
+                  color="primary"
+                >
+                  <LaunchIcon fontSize="small" />
+                </IconButton>
 
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   {article.tags.map((tag) => (

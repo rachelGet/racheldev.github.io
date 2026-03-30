@@ -10,23 +10,10 @@ import CardActionArea from '@mui/material/CardActionArea';
 import * as React from 'react';
 import { Button, Popover, Avatar, IconButton, Link, CardMedia } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
+import type { Certification, Project } from '../commonSrc/Data.tsx';
+import { myCerts, myProjects, cards } from '../commonSrc/Data.tsx';
+import Chip from '@mui/material/Chip';
 
-interface Project {
-  title: string;
-  description: string;
-  mainImage: string;    // Imagen grande del proyecto
-  userImage: string;    // Avatar del creador
-  userName: string;
-  publishedDate: string;
-  video: string;
-  link: string;
-}
-interface Certification {
-  title: string;
-  issuer: string; // Ejemplo: 'Google', 'Meta', 'AWS'
-  logoUrl: string; // URL del logo
-  link: string; // URL de la credencial
-}
 interface CertProps {
   cert: Certification;
 }
@@ -56,7 +43,7 @@ function ProjectCard({ project }: ProjectCardProps) {
     >
       {/* Imagen Grande de Visualización */}
       <Box sx= {{
-      height: { xs: 200, sm: 294, md: 494 },
+      height: { xs: 200, sm: 294, md: 294 },
       width: '100%',
       overflow: 'hidden',
       position: 'relative',
@@ -82,7 +69,6 @@ function ProjectCard({ project }: ProjectCardProps) {
         )}
       </Box>
       <CardContent sx={{ p: { xs: 2, md: 3 } }}>
-        {/* Encabezado: Título y Link */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
           <Typography variant="h5" fontWeight="bold" component="div" sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}>
             {project.title}
@@ -98,12 +84,28 @@ function ProjectCard({ project }: ProjectCardProps) {
           </IconButton>
         </Box>
 
-        {/* Descripción */}
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3, minHeight: '40px' }}>
           {project.description}
         </Typography>
 
-        {/* Footer: Usuario y Fecha */}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+          {project.tags.map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              size="small"
+              sx={{
+                bgcolor: 'rgba(59, 130, 246, 0.08)',
+                color: '#3b82f6',
+                border: '1px solid',
+                borderColor: 'rgba(59, 130, 246, 0.2)',
+                fontWeight: 500,
+                borderRadius: '10px',
+                fontSize: '0.75rem',
+              }}
+            />
+          ))}
+        </Box>
         <Box 
           sx={{ 
             display: 'flex', 
@@ -114,7 +116,6 @@ function ProjectCard({ project }: ProjectCardProps) {
             borderColor: 'divider'
           }}
         >
-          {/* Creador (Imagen Pequeña y Nombre) */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Avatar 
               src={project.userImage} 
@@ -126,7 +127,6 @@ function ProjectCard({ project }: ProjectCardProps) {
             </Typography>
           </Box>
 
-          {/* Fecha de Publicación */}
           <Typography variant="caption" color="text.disabled" fontWeight="bold">
             {project.publishedDate.toUpperCase()}
           </Typography>
@@ -211,96 +211,6 @@ function CertificationButton({ cert }: CertProps) {
   );
 }
 
-
-const myCerts: Certification[] = [
-  {
-    title: "Oracle SQL Databases",
-    issuer: "LearnQuest",
-    logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-3-zlgn9KhPuEAK5kYFECzbGvtmQf1DVT4g&s",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~HC13GS4V59XD/CERTIFICATE_LANDING_PAGE~HC13GS4V59XD.jpeg"
-  },
-  {
-    title: "Google Advanced Data Analytics",
-    issuer: "Google",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/4a/cb36835ae3421187080898a7ecc11d/Google-G_360x360.png?auto=format%2Ccompress&dpr=1&w=80&h=80",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8.jpeg"
-  },
-  {
-    title: "Tableau Specialization",
-    issuer: "Packt",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/fa/3b9b5304c24cf4aa64054631ee946c/360-360-square.png?auto=format%2Ccompress&dpr=1&w=64&h=64",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8/CERTIFICATE_LANDING_PAGE~1PGS2FQQ7SN8.jpeg"
-  },
-  {
-    title: "BI Essentials for Finance Analysts Specialization",
-    issuer: "Corporate Finance Institute",
-    logoUrl: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/15/359c4869c549c79537f3059b5d025a/Union-Mark_navy-large.png?auto=format%2Ccompress&dpr=1&w=64&h=64",
-    link: "https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~MBUSXD5ZUV00/CERTIFICATE_LANDING_PAGE~MBUSXD5ZUV00.jpeg"
-  }
-];
-
-const myProjects: Project[] = [
-  {
-    title: "Hackthon Dapr: ZAIDriver",
-    description: "Built a vector search engine using Qdrant and HuggingFace during the Winter Hackathon.",
-    mainImage: "", // Imagen de IA
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4", // Tu avatar
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video:"https://www.youtube.com/watch?v=YfDT1425pZw",
-    link: "https://github.com/tu-usuario/proyecto",
-  },
-    {
-    title: "AI Semantic Search",
-    description: "Built a vector search engine using Qdrant and HuggingFace during the Winter Hackathon.",
-    mainImage: "https://media.licdn.com/dms/image/v2/D4E05AQGSXlbWnrfG5Q/videocover-low/videocover-low/0/1727114872008?e=1775152800&v=beta&t=l-rUG2fRqB5pYqcsNa-SbzwiVw7nDETW11_TU8pv6_A&quot", // Imagen de IA
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4", // Tu avatar
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video:"",
-    link: "https://github.com/tu-usuario/proyecto"
-  },
-    {
-    title: "AI Semantic Search",
-    description: "Built a vector search engine using Qdrant and HuggingFace during the Winter Hackathon.",
-    mainImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995", // Imagen de IA
-    userImage: "https://avatars.githubusercontent.com/u/66224544?v=4", // Tu avatar
-    userName: "rachelDev",
-    publishedDate: "Mar 2024",
-    video:"https://www.youtube.com/watch?v=tyAyS40lZlc",
-    link: "https://github.com/rachelGet/trading_Qtinterface"
-  }
-];
-
-const cards = [
-  {
-    id: 'lenguages_card',
-    title: 'Languages',
-    description: 'Python, Go, C++',
-  },
-  {
-    id: 'skills_card',
-    title: 'Skills',
-    description: 'Cloud & Architecture: Docker, Dapr, Redis. | AI & Data: Qdrant (Vector DB), PostgreSQL, HuggingFace, Scikit-learn. | Frameworks: Django & Qt.',
-  },
-  {
-    id: 'certifications_card',
-    title: 'Certifications',
-    description: 'Technical expertise through credentials from different institutions.',
-  },
-    {
-    id: "projects_card",
-    title: 'Projects',
-    description: 'A showcase of solutions built for hackathons and personal development sprints.',
-  },
-    {
-    id: 'education_card',
-    title: 'Education',
-    description: 'Currently pursuing degree',
-  },
-
-];
-
 function InfoCard({ w, h, index, selectedCard, setSelectedCard, children }: { w: number | string; h: number | string; index: number; selectedCard: number; setSelectedCard: (val: number) => void; children?: React.ReactNode}) {
   const card = cards[index];
   
@@ -352,6 +262,7 @@ function InfoCard({ w, h, index, selectedCard, setSelectedCard, children }: { w:
     </Card>
   );
 }
+
 function App() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -485,7 +396,6 @@ function App() {
 
 
                 </InfoCard>
-              {/* Projects Card*/}              
               <InfoCard 
                 w="100%" h="100%" 
                 index={3} 
@@ -498,7 +408,6 @@ function App() {
                   ))}
                 </Box>
               </InfoCard>
-              {/* Education Card*/}              
               </Box>
               <InfoCard 
                 w="100%" h="100%" 
@@ -517,7 +426,6 @@ function App() {
                   >
                     <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', flexDirection: { xs: 'column', sm: 'row' } }}>
 
-                      {/* 1. Icono o Logo de la Institución */}
                       <Avatar
                         src="https://media.licdn.com/dms/image/v2/C4D0BAQEu_Aa76fcmPw/company-logo_200_200/company-logo_200_200/0/1630998679745/universidad_europea_de_madrid_logo?e=1776297600&v=beta&t=vMk7rLrl5Vgy_VVkJC4QYBPWk6ndjBMgH0GtlG3NKbk" // Cambia por el logo de tu uni
                         variant="rounded"
@@ -525,13 +433,11 @@ function App() {
                       />
 
                       <Box sx={{ flexGrow: 1, width: '100%' }}>
-                        {/* 2. Título de Carrera y Link a la Institución */}
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
                           <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1.2 }}>
                             Degree in Data Science
                           </Typography>
                           
-                          {/* Etiqueta 'A' (Link) con estilo de botón pequeño */}
                           <Link 
                             href="https://www.linkedin.com/school/universidad-europea-de-madrid/posts/?feedView=all" 
                             target="_blank" 
@@ -551,7 +457,6 @@ function App() {
                           </Link>
                         </Box>
 
-                        {/* 3. Fechas y GPA */}
                         <Box 
                           sx={{ 
                             display: 'flex', 
