@@ -58,7 +58,7 @@ export const articles: Article[] = [
 export const skillCategories: SkillCategory[] = [
   {
     title: 'Cloud & Architecture',
-    icon: '☁️',
+    icon: '',
     skills: [
       { name: 'Docker', level: 85 },
       { name: 'Dapr', level: 80 },
@@ -77,7 +77,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Frameworks',
-    icon: '⚙️',
+    icon: '',
     skills: [
       { name: 'Django', level: 80 },
       { name: 'Qt', level: 75 },
@@ -86,7 +86,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Tools & Workflow',
-    icon: '🛠️',
+    icon: '',
     skills: [
       { name: 'Git & GitHub', level: 90 },
       { name: 'Linux / CLI', level: 85 },
